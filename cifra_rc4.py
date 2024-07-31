@@ -5,7 +5,7 @@ def main():
     if sys.argv != 3:
         nome_arquivo = sys.argv[1]
         chave = sys.argv[2]
-        funcao = sys.argv[3] 
+        funcao = sys.argv[3].lower()  
 
         mensagem = ''
         with open(nome_arquivo, "r", encoding='utf-8') as arquivo:
