@@ -25,4 +25,8 @@ Seja qual for a operação, o script criará um novo arquivo .txt criptografado/
 
 ## Exemplo de execução em windows
 
+### Criptografia
 python cifra_rc4.py arquivo.txt chave c
+python cifra_rc4.py C:\Users\marce\Documents\Criptografia\nome_arquivo.txt chave c
+### Decriptografia
+python cifra_rc4.py arquivo.txt chave d
