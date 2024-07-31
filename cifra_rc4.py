@@ -26,17 +26,17 @@ def main():
 # Métodos Cripto/Decripto
 # KSA
 # cria vetores para gerar o código de criptografia que será utilizado
-# para fazer a substituição da tabela ascii
+# para fazer a substituição da tabela unicode
 def ksa(chave):
-  stream = [] # vetor base de 255 bits
-  k_stream = [] # vetor 
+  stream = [] # vetor de índices de 1025 posições para melhor funcionamento com unicode utf-8
+  k_stream = [] # vetor de conversão dos caracteres da chave para gerar o código de criptografia
 
-  for i in range(0, 256):
+  for i in range(0, 1025): # aloca os valores nos vetores não importando o tamanho da chave
       stream.append(i)
-      k_stream.append(ord(chave[i % len(chave)]))
+      k_stream.append(ord(chave[i % len(chave)])) # transforma caracter em inteiro
 
   j = 0
-  for i in range(0, 256):
+  for i in range(0, 1025): # embaralha os vetores
       j = (j + stream[i] + k_stream[i]) % 256
       temp = stream[i]
       stream[i] = stream[j]
@@ -44,6 +44,7 @@ def ksa(chave):
   return (stream)
 
 #PRGA
+# função que faz a criptografia e decriptografia de fato, fazendo um cálculo xor
 def prga(mensagem, stream):
   i = 0
   j = 0
@@ -54,11 +55,11 @@ def prga(mensagem, stream):
     temp = stream[i]
     stream[i] = stream[j]
     stream[j] = temp
-    cripto.append(stream[(stream[i] + stream[j]) % 256] ^ ord(mensagem[n]))
+    cripto.append(stream[(stream[i] + stream[j]) % 256] ^ ord(mensagem[n])) # aqui é feito o cálculo xor entre os pares de dados pra criptografia
   
   mensagem_criptografada = ''
   
-  for i in cripto:
+  for i in cripto: # transforma cada número binário representado em cripto em um caracter, fazendo uma concatenação em string
     mensagem_criptografada += chr(i)
 
   return(mensagem_criptografada)   
